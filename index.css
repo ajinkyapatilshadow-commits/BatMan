@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+:root { color-scheme: dark; font-family: 'Space Mono', monospace; background: #071018; }
+* { box-sizing: border-box; }
+html { background: #071018; }
+body { margin: 0; min-width: 320px; background: #071018; color: #e8edf1; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #071018; }
+::-webkit-scrollbar-thumb { background: #30414c; border-radius: 4px; }
+
+.panel { border: 1px solid rgb(51 65 85 / 0.7); border-radius: 0.75rem; background: rgb(13 23 32 / 0.9); box-shadow: 0 16px 40px rgb(0 0 0 / 0.2); }
+.eyebrow { font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #94a3b8; }
+.yellow-button { border-radius: 0.5rem; background: #ffc928; padding: 0.75rem 1.25rem; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; color: #020617; box-shadow: 0 0 22px rgb(255 201 40 / 0.2); transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease; }
+.yellow-button:hover { transform: translateY(-2px); background: #ffd84e; box-shadow: 0 0 30px rgb(255 201 40 / 0.4); }
