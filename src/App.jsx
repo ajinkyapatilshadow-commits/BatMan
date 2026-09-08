@@ -5,24 +5,36 @@ const navItems = [
 ];
 
 const subjects = [
-  { title: 'Alphabet & Phonics', detail: 'Letters, sounds, and words!', progress: '8 / 10 lessons', value: 80, icon: 'ABC', tone: 'from-amber-800/80 to-yellow-400/80' },
-  { title: 'Numbers & Math', detail: 'Count, add, and solve!', progress: '5 / 10 lessons', value: 50, icon: '123', tone: 'from-violet-900/80 to-indigo-400/70' },
-  { title: 'Science & Nature', detail: 'Explore the world around you!', progress: '3 / 10 lessons', value: 30, icon: '❧', tone: 'from-emerald-900/80 to-lime-400/70' },
-  { title: 'Art & Creativity', detail: 'Imagine. Draw. Create!', progress: '2 / 10 lessons', value: 20, icon: '◉', tone: 'from-orange-900/80 to-rose-400/70' },
+  { title: 'Alphabet & Phonics', detail: 'Letters, sounds, and words!', progress: '8 / 10 lessons', value: 80, visual: 'letters' },
+  { title: 'Numbers & Math', detail: 'Count, add, and solve!', progress: '5 / 10 lessons', value: 50, visual: 'numbers' },
+  { title: 'Science & Nature', detail: 'Explore the world around you!', progress: '3 / 10 lessons', value: 30, visual: 'nature' },
+  { title: 'Art & Creativity', detail: 'Imagine. Draw. Create!', progress: '2 / 10 lessons', value: 20, visual: 'art' },
 ];
 
 const activities = [
-  { title: 'Letter Detective', detail: 'Find the missing letters!', icon: 'ABC', tone: 'from-cyan-900 to-sky-500' },
-  { title: 'Number Tower', detail: 'Build the tallest tower!', icon: '123', tone: 'from-emerald-900 to-lime-500' },
-  { title: 'Animal Match', detail: 'Match the pairs!', icon: '🐒', tone: 'from-green-900 to-orange-500' },
-  { title: 'Space Explorer', detail: 'Explore the solar system!', icon: '🚀', tone: 'from-indigo-950 to-violet-600' },
+  { title: 'Letter Detective', detail: 'Find the missing letters!', visual: 'detective' },
+  { title: 'Number Tower', detail: 'Build the tallest tower!', visual: 'tower' },
+  { title: 'Animal Match', detail: 'Match the pairs!', visual: 'animals' },
+  { title: 'Space Explorer', detail: 'Explore the solar system!', visual: 'space' },
 ];
 
 function Brand() {
-  return <div className="flex items-center gap-3"><div className="grid h-10 w-16 place-items-center rounded-2xl border border-yellow/80 bg-[#111c25] text-3xl text-yellow shadow-glow">⌁</div><div><div className="font-display text-2xl font-bold leading-none tracking-wide text-white">BATKID <span className="text-yellow">LEARN</span></div><div className="mt-1 text-[10px] text-yellow">Small Minds. Big Dreams.</div></div></div>;
+  return <div className="flex items-center gap-3"><div className="bat-mark"><span /></div><div><div className="font-display text-2xl font-bold leading-none tracking-wide text-white">BATKID <span className="text-yellow">LEARN</span></div><div className="mt-1 text-[10px] text-yellow">Small Minds. Big Dreams.</div></div></div>;
 }
 
 function Icon({ children, active }) { return <span className={`grid h-7 w-7 place-items-center rounded-md text-lg ${active ? 'bg-yellow text-slate-950' : 'text-slate-300'}`}>{children}</span>; }
+
+function HeroArt() {
+  return <div className="hero-art" aria-hidden="true"><div className="hero-mist mist-one" /><div className="hero-mist mist-two" /><div className="hero-rock rock-one" /><div className="hero-rock rock-two" /><div className="hero-hero"><span className="hero-ears" /><span className="hero-head"><i /><i /></span><span className="hero-cape" /><span className="hero-chest" /></div><div className="hero-console"><span /><span /><span /></div></div>;
+}
+
+function SubjectVisual({ subject }) {
+  return <div className={`subject-visual ${subject.visual}`}><span className="subject-glow" />{subject.visual === 'letters' && <><b>A</b><b>B</b><b>C</b></>}{subject.visual === 'numbers' && <><b>1</b><b>2</b><b>3</b></>}{subject.visual === 'nature' && <><span className="leaf leaf-a" /><span className="leaf leaf-b" /><span className="ladybug" /></>}{subject.visual === 'art' && <><span className="palette-dot dot-a" /><span className="palette-dot dot-b" /><span className="palette-dot dot-c" /><span className="brush" /></>}</div>;
+}
+
+function ActivityVisual({ activity }) {
+  return <div className={`activity-visual ${activity.visual}`}><span className="activity-glow" />{activity.visual === 'detective' && <><span className="mini-mask" /><b>ABC</b></>}{activity.visual === 'tower' && <><b>1</b><b>2</b><b>3</b></>}{activity.visual === 'animals' && <><span className="animal-face">◕</span><span className="animal-face small">◕</span></>}{activity.visual === 'space' && <><span className="planet" /><span className="rocket">↗</span></>}</div>;
+}
 
 function Sidebar({ active, setActive }) {
   return <aside className="fixed inset-y-0 left-0 z-20 hidden w-52 border-r border-slate-700/60 bg-[#080f16]/95 px-3 py-6 lg:block"><div className="h-20" /> <div className="space-y-2">{navItems.map(([icon, label]) => <button key={label} onClick={() => setActive(label)} className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-xs transition ${active === label ? 'border-l-2 border-yellow bg-yellow/10 font-bold text-yellow' : 'text-slate-300 hover:bg-slate-800/70 hover:text-white'}`}><Icon active={active === label}>{icon}</Icon>{label}</button>)}</div><div className="absolute bottom-8 left-0 right-0 px-5 text-center text-xs italic leading-relaxed text-slate-400">“Every great mind<br />starts with curiosity.”<br /><span className="text-yellow">- Batman</span></div></aside>;
@@ -34,9 +46,9 @@ function Header({ onMenu }) {
 
 function ProgressBar({ value }) { return <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-700"><div className="h-full rounded-full bg-yellow shadow-[0_0_8px_rgba(255,201,40,.8)]" style={{ width: `${value}%` }} /></div>; }
 
-function SubjectCard({ subject }) { return <article className="group rounded-xl border border-slate-700/80 bg-[#111c25] p-3 transition hover:-translate-y-1 hover:border-yellow/60 hover:shadow-glow"><div className={`relative mb-3 grid h-16 place-items-center overflow-hidden rounded-lg bg-gradient-to-br ${subject.tone}`}><div className="absolute inset-0 bg-black/20" /><span className="relative font-display text-4xl font-bold tracking-widest text-white drop-shadow-lg">{subject.icon}</span><span className="absolute right-2 top-2 text-sm text-emerald-300">●</span></div><h3 className="font-display text-lg font-bold text-white">{subject.title}</h3><p className="mt-0.5 text-[10px] text-slate-400">{subject.detail}</p><div className="mt-4 flex items-center gap-2"><span className="text-[9px] text-slate-400">{subject.progress}</span><ProgressBar value={subject.value} /><button className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-yellow text-yellow transition hover:bg-yellow hover:text-slate-950" aria-label={`Open ${subject.title}`}>›</button></div></article>; }
+function SubjectCard({ subject }) { return <article className="group rounded-xl border border-slate-700/80 bg-[#111c25] p-3 transition hover:-translate-y-1 hover:border-yellow/60 hover:shadow-glow"><div className="relative mb-3"><SubjectVisual subject={subject} /><span className="absolute right-2 top-2 text-sm text-emerald-300">●</span></div><h3 className="font-display text-lg font-bold text-white">{subject.title}</h3><p className="mt-0.5 text-[10px] text-slate-400">{subject.detail}</p><div className="mt-4 flex items-center gap-2"><span className="text-[9px] text-slate-400">{subject.progress}</span><ProgressBar value={subject.value} /><button className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-yellow text-yellow transition hover:bg-yellow hover:text-slate-950" aria-label={`Open ${subject.title}`}>›</button></div></article>; }
 
-function ActivityCard({ activity }) { return <article className="rounded-xl border border-slate-700/80 bg-[#101b24] p-2.5 transition hover:border-yellow/70 hover:shadow-glow"><div className={`relative grid h-24 place-items-center overflow-hidden rounded-lg bg-gradient-to-br ${activity.tone}`}><div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/50 to-transparent" /><span className="relative font-display text-4xl font-bold text-white drop-shadow-lg">{activity.icon}</span><span className="absolute right-2 top-2 rounded bg-slate-900/70 px-1.5 py-0.5 text-[8px] text-white">Game</span></div><h3 className="mt-2 font-display text-lg font-bold text-white">{activity.title}</h3><p className="text-[9px] text-slate-400">{activity.detail}</p><button className="yellow-button mt-3 w-full py-2 text-[10px]">Play</button></article>; }
+function ActivityCard({ activity }) { return <article className="rounded-xl border border-slate-700/80 bg-[#101b24] p-2.5 transition hover:border-yellow/70 hover:shadow-glow"><div className="relative"><ActivityVisual activity={activity} /><span className="absolute right-2 top-2 rounded bg-slate-900/70 px-1.5 py-0.5 text-[8px] text-white">Game</span></div><h3 className="mt-2 font-display text-lg font-bold text-white">{activity.title}</h3><p className="text-[9px] text-slate-400">{activity.detail}</p><button className="yellow-button mt-3 w-full py-2 text-[10px]">Play</button></article>; }
 
 function MissionPanel() { return <section className="panel p-4"><div className="mb-5 flex items-center justify-between"><h2 className="font-display text-xl font-bold text-white">Your Learning Mission</h2><button className="rounded-md border border-slate-700 px-3 py-2 text-[9px] text-slate-300">Next Reward</button></div><div className="flex items-center gap-5"><div className="relative grid h-24 w-24 shrink-0 place-items-center rounded-full border-[7px] border-yellow/90 border-r-slate-700 border-b-slate-700 text-yellow"><span className="text-3xl">⌁</span><span className="absolute -right-2 -top-2 text-xs">✦</span></div><div className="flex-1"><div className="text-sm text-yellow">Level 3</div><div className="mt-1 text-xs font-bold text-white">Curious Learner</div><div className="mt-4 flex items-center gap-2"><ProgressBar value={60} /><span className="text-[9px] text-slate-400">6 / 10</span></div></div><div className="hidden text-center sm:block"><div className="grid h-14 w-14 place-items-center rounded-full border-2 border-yellow bg-yellow/10 text-2xl text-yellow">✦</div><span className="mt-1 block text-[8px] text-yellow">Star Explorer Badge</span></div></div></section>; }
 
